@@ -1,6 +1,5 @@
 package com.game.number_guessing.Controller;
 
-import com.game.number_guessing.Model.GameState;
 import com.game.number_guessing.Service.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
