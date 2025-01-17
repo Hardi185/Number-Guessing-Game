@@ -1,10 +1,10 @@
 import './App.css'
+import Game from './components/game';
 
 function App() {
-
   return (
     <>
-      <p className='bg-pink-400'>Welcome to number guessing game!</p>
+    <Game/>
     </>
   )
 }
