@@ -5,19 +5,9 @@ import { resetGame, makeGuess } from '../services/gameService';
 import { MESSAGES } from '../constants/messages';
 import { resetScore, setScore } from '../redux/scoreSlice';
 
-function Game() {
-  const [message, setMessage] = useState('');
-  const [guess, setGuess] = useState('');
+function Game({ message, guess, setMessage, setGuess }) {
   const attempts = useSelector((state) => state.attempts.attempts);
   const dispatch = useDispatch();
-
-  const handleResetGame = async () => {
-    const response = await resetGame();
-    setMessage(response);
-    dispatch(resetAttempts());
-    dispatch(resetScore());
-    setGuess('');
-  };
 
   const handleMakeGuess = async () => {
     if (!guess) {

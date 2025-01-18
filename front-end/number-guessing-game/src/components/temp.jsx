@@ -49,14 +49,7 @@ function Game() {
 
   return (
     <div className="container mx-auto text-center my-8">
-      <h1 className="text-2xl font-bold mb-4">Number Guessing Game</h1>
-
-      <button
-        className="bg-blue-500 text-white px-4 py-2 rounded mb-4"
-        onClick={handleResetGame}
-      >
-        Reset Game
-      </button>
+      
 
       <div className="grid grid-cols-5 gap-4">
         {grid.map((number) => (
@@ -71,8 +64,6 @@ function Game() {
       </div>
 
       <p className="text-xl mt-4">{message}</p>
-      <p className="mt-4 text-lg">Attempts: {attempts}</p>
-      <p className="mt-4 text-lg">Score: {score}</p>
     </div>
   );
 }

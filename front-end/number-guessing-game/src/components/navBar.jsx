@@ -1,10 +1,22 @@
 import React from 'react';
-import { useSelector } from 'react-redux';
 import logo from '../assets/logo.png';
+import { resetGame } from '../services/gameService';
+import { resetScore } from '../redux/scoreSlice';
+import { resetAttempts } from '../redux/attemptsSlice';
+import { useDispatch, useSelector } from 'react-redux';
 
-function Navbar({ handleResetGame }) {
+function Navbar({ setMessage, setGuess }) {
   const attempts = useSelector((state) => state.attempts.attempts);
   const score = useSelector((state) => state.score.score);
+  const dispatch = useDispatch();
+  
+  const handleResetGame = async () => {
+    const response = await resetGame();
+    setMessage(response);
+    dispatch(resetAttempts());
+    dispatch(resetScore());
+    setGuess('');
+  };
 
   return (
     <nav className="bg-blue-500 text-white sticky top-0 shadow-md z-50">
