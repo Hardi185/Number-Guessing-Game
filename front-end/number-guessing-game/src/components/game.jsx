@@ -1,33 +1,50 @@
 import React, { useState, useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { incrementAttempts } from '../redux/attemptsSlice';
-import { startGame, makeGuess } from '../services/gameService';
+import { incrementAttempts, resetAttempts } from '../redux/attemptsSlice';
+import { resetGame, makeGuess } from '../services/gameService';
+import { MESSAGES} from '../constants/messages'
 
 function Game() {
   const [message, setMessage] = useState('');
   const [guess, setGuess] = useState('');
+  const [score, setScore] = useState(1000);
   const attempts = useSelector((state) => state.attempts.attempts);
   const dispatch = useDispatch();
 
-//   useEffect(() => {
-//     // If the game is started again, reset attempts
-//     dispatch(incrementAttempts());
-//   }, [dispatch]);
-
-  const handleStartGame = async () => {
-    const response = await startGame();
+  const handleResetGame = async () => {
+    const response = await resetGame();
     setMessage(response);
-    dispatch(incrementAttempts()); // Increment attempts when starting a new game
+    dispatch(resetAttempts()); // Reset attempts on a new game
+    setGuess(''); // Clear the input field
   };
 
   const handleMakeGuess = async () => {
+    console.log("attempts:",attempts);
     if (!guess) {
       setMessage('Please enter a valid number.');
       return;
     }
-    const response = await makeGuess(parseInt(guess));
-    setMessage(response);
-    dispatch(incrementAttempts()); // Increment attempts after a guess
+
+    dispatch(incrementAttempts());
+    console.log("attempts after incrementAttempts:", attempts);
+    const response = await makeGuess(parseInt(guess), parseInt(attempts));
+    console.log("response:", response);
+
+    if(response.message == MESSAGES.GAME_OVER)
+    {
+      dispatch(resetAttempts());
+      console.log("attempts after reset:",attempts);
+      setGuess('');
+    }
+
+    if (response) {
+      setMessage(response.message); // Set the message from backend
+      setScore(response.score); // Set the score from backend
+    }
+
+    // else{
+    //    // Increment attempts after a guess
+    // }
   };
 
   return (
@@ -36,9 +53,9 @@ function Game() {
 
       <button
         className="bg-blue-500 text-white px-4 py-2 rounded mb-4"
-        onClick={handleStartGame}
+        onClick={handleResetGame}
       >
-        Start Game
+        Reset Game
       </button>
 
       <div className="mb-4">
@@ -59,6 +76,8 @@ function Game() {
 
       <p className="text-xl mt-4">{message}</p>
       <p className="mt-4 text-lg">Attempts: {attempts}</p>
+      <p className="mt-4 text-lg">Score: {score}</p>
+
     </div>
   );
 }

@@ -3,6 +3,8 @@ package com.game.number_guessing.Service;
 
 import org.springframework.stereotype.Service;
 
+import com.game.number_guessing.Model.GameState;
+
 import java.util.Random;
 
 @Service
@@ -22,19 +24,34 @@ public class GameService {
         gameOver = false;
     }
 
-    public String makeGuess(int guess) {
+    public GameState makeGuess(int guess, int attempts) {
         if (gameOver) {
-            return "Game over! Please start a new game.";
+            resetGame();
+            return new GameState("Game over! Please start a new game.", 0);
         }
 
         attempts++;
+        int score = 1000 - (attempts - 1) * 100; // Decrease score by 100 for each additional guess
+        if (score < 0) {
+            score = 0; // Ensure score is non-negative
+        }
+
+        if(attempts == 10) { gameOver = true; }
         if (guess == targetNumber) {
             gameOver = true;
-            return "Congratulations! You guessed the number " + targetNumber + " in " + attempts + " attempts.";
-        } else if (guess > targetNumber) {
-            return guess - targetNumber > 10 ? "Too high!" : "A little high!";
+            return new GameState(
+                "Congratulations! You guessed the number " + targetNumber + " in " + attempts + " attempts.",
+                score
+            );        
+        } else if (guess > 100){
+            return new GameState("Please choose a number between 1 and 100.", score);
+        }
+        else if (guess > targetNumber) {
+            String message = guess - targetNumber > 10 ? "Too high!" : "A little high!";
+            return new GameState(message, score);
         } else {
-            return targetNumber - guess > 10 ? "Too low!" : "A little low!";
+            String message = targetNumber - guess > 10 ? "Too low!" : "A little low!";
+            return new GameState(message, score);       
         }
     }
 
@@ -42,7 +59,7 @@ public class GameService {
         return attempts;
     }
 
-    public boolean isGameOver() {
-        return gameOver;
-    }
+    // public boolean isGameOver() {
+    //     return gameOver;
+    // }
 }
