@@ -64,10 +64,10 @@ function Game({onReset }) {
               gameOver
                 ? 'bg-gray-400 cursor-not-allowed' // Disable all buttons and turn them gray when game is over
                 : correctNumber === number
-                ? 'bg-green-500 cursor-not-allowed' // Mark correct number in green with ✔
-                : selectedNumbers.has(number)
-                ? 'bg-red-500 cursor-not-allowed' // Mark selected numbers in red with ✖
-                : 'bg-gray-200 hover:bg-blue-500' // Default button style
+                  ? 'bg-green-500 cursor-not-allowed' // Mark correct number in green with ✔
+                  : selectedNumbers.has(number)
+                    ? 'bg-red-500 cursor-not-allowed' // Mark selected numbers in red with ✖
+                    : 'bg-gray-200 hover:bg-blue-500' // Default button style
             }`}
             disabled={gameOver || selectedNumbers.has(number) || correctNumber === number} // Disable all buttons if game is over
           >
