@@ -38,7 +38,7 @@ public class GameService {
 
         if(attempts == 10) { gameOver = true; }
         if (guess == targetNumber) {
-            gameOver = true;
+            //gameOver = true;
             return new GameState(
                 "Congratulations! You guessed the number " + targetNumber + " in " + attempts + " attempts. Click on Reset to play again.",
                 score
