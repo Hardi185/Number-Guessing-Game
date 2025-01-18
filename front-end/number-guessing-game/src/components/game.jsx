@@ -3,11 +3,11 @@ import { useDispatch, useSelector } from 'react-redux';
 import { incrementAttempts, resetAttempts } from '../redux/attemptsSlice';
 import { resetGame, makeGuess } from '../services/gameService';
 import { MESSAGES } from '../constants/messages';
+import { resetScore, setScore } from '../redux/scoreSlice';
 
 function Game() {
   const [message, setMessage] = useState('');
   const [guess, setGuess] = useState('');
-  const [score, setScore] = useState(1000);
   const attempts = useSelector((state) => state.attempts.attempts);
   const dispatch = useDispatch();
 
@@ -15,8 +15,8 @@ function Game() {
     const response = await resetGame();
     setMessage(response);
     dispatch(resetAttempts());
+    dispatch(resetScore());
     setGuess('');
-    setScore(1000); // Reset score
   };
 
   const handleMakeGuess = async () => {
@@ -27,9 +27,10 @@ function Game() {
 
     dispatch(incrementAttempts());
     const response = await makeGuess(parseInt(guess), parseInt(attempts));
+    console.log("reponse:", response);
     if (response) {
       setMessage(response.message);
-      setScore(response.score);
+      dispatch(setScore(response.score));
     }
 
     if (response.message === MESSAGES.GAME_OVER) {
@@ -59,7 +60,6 @@ function Game() {
         </div>
 
         <p className="text-xl mt-4">{message}</p>
-        <p className="mt-4 text-lg">Score: {score}</p>
       </div>
     </div>
   );

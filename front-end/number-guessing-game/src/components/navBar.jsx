@@ -2,8 +2,9 @@ import React from 'react';
 import { useSelector } from 'react-redux';
 import logo from '../assets/logo.png';
 
-function Navbar({ handleResetGame, score }) {
+function Navbar({ handleResetGame }) {
   const attempts = useSelector((state) => state.attempts.attempts);
+  const score = useSelector((state) => state.score.score);
 
   return (
     <nav className="bg-blue-500 text-white sticky top-0 shadow-md z-50">
