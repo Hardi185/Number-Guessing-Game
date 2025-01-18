@@ -5,17 +5,16 @@ import { resetScore } from '../redux/scoreSlice';
 import { resetAttempts } from '../redux/attemptsSlice';
 import { useDispatch, useSelector } from 'react-redux';
 
-function Navbar({ setMessage, setGuess }) {
+function Navbar({ handleResetGrid }) {
   const attempts = useSelector((state) => state.attempts.attempts);
   const score = useSelector((state) => state.score.score);
   const dispatch = useDispatch();
   
   const handleResetGame = async () => {
     const response = await resetGame();
-    setMessage(response);
     dispatch(resetAttempts());
     dispatch(resetScore());
-    setGuess('');
+    handleResetGrid();
   };
 
   return (

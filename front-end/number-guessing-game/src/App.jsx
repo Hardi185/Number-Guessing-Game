@@ -1,17 +1,27 @@
 import './App.css'
-import React, { useState } from 'react';
+import React, { useState, useRef } from 'react';
 import Game from './components/game';
-//import Game from './components/temp';
 import NavBar from './components/navBar'
 
 function App() {
-  const [message, setMessage] = useState('');
-  const [guess, setGuess] = useState('');
+  const gameResetRef = useRef(null);
+
+  //will be set in Game
+  const setResetFunction = (resetFunc) => {
+    gameResetRef.current = resetFunc;
+  };
+
+  //will work when clicking from navbar
+  const handleResetGrid = () => {
+    if (gameResetRef.current) {
+      gameResetRef.current(); // Call the reset function in the Game component
+    }
+  };
 
   return (
     <>
-      <NavBar setMessage={setMessage} setGuess={setGuess} />
-      <Game message={message} guess={guess} setMessage={setMessage} setGuess={setGuess} />
+      <NavBar handleResetGrid={handleResetGrid} />
+      <Game onReset={setResetFunction}  />
     </>
   );
 

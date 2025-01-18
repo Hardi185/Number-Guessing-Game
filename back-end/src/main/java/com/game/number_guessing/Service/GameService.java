@@ -40,7 +40,7 @@ public class GameService {
         if (guess == targetNumber) {
             gameOver = true;
             return new GameState(
-                "Congratulations! You guessed the number " + targetNumber + " in " + attempts + " attempts.",
+                "Congratulations! You guessed the number " + targetNumber + " in " + attempts + " attempts. Click on Reset to play again.",
                 score
             );        
         } else if (guess > 100){
