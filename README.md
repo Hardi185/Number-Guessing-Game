@@ -37,5 +37,5 @@ mvn spring-boot:run
 
 ### Front-End Setup (React with Vite)
 
-For creation of react project using Vite and running it, Follow this link:
+For creation of react project using Vite and to run it, Follow this link:
 (React Project using Vite)[https://github.com/Hardi185/ReactJS/blob/main/Project/01viteReact/Setup%20%26%20Explaination.md]
