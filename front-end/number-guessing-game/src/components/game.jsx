@@ -4,6 +4,12 @@ import { incrementAttempts, resetAttempts } from '../redux/attemptsSlice';
 import { makeGuess } from '../services/gameService';
 import { MESSAGES } from '../constants/messages';
 import { setScore } from '../redux/scoreSlice';
+import winImg from '../assets/win-img.png'
+import outOfMoves from '../assets/out-of-moves-img.png'
+import tooHigh from '../assets/too-high-img.png'
+import tooLow from '../assets/too-low-img.png'
+import littleHigh from '../assets/little-high-img.png'
+import littleLow from '../assets/little-low-img.png'
 
 function Game({onReset }) {
   const [message, setMessage] = useState('');
@@ -13,6 +19,34 @@ function Game({onReset }) {
   const [gameOver, setGameOver] = useState(false); // Track if the game is over
   const attempts = useSelector((state) => state.attempts.attempts);
   const dispatch = useDispatch();
+
+  const getMessageImage = (message) => {
+  
+    // Convert message to lowercase for case-insensitive comparison
+    const lowerCaseMessage = message.toLowerCase();
+  
+    if (lowerCaseMessage.includes(MESSAGES.CORRECT_GUESS.toLowerCase())) {
+      return winImg; // Path to the win image
+    }
+    if (lowerCaseMessage === MESSAGES.GAME_OVER.toLowerCase()) {
+      return outOfMoves; // Path to the out-of-moves image
+    }
+    if (lowerCaseMessage.includes(MESSAGES.TOO_HIGH.toLowerCase())) {
+      return tooHigh; // Path to the too-high image
+    }
+    if (lowerCaseMessage.includes(MESSAGES.TOO_LOW.toLowerCase())) {
+      return tooLow; // Path to the too-low image
+    }
+    if (lowerCaseMessage.includes(MESSAGES.LITTLE_HIGH.toLowerCase())) {
+      return littleHigh; // Path to the little-high image
+    }
+    if (lowerCaseMessage.includes(MESSAGES.LITTLE_LOW.toLowerCase())) {
+      return littleLow; // Path to the little-low image
+    }
+    
+    return null; // No image for other messages
+  };
+  
 
   const handleNumberClick = async (number) => {
     // If the number has already been selected, do nothing
@@ -51,9 +85,24 @@ function Game({onReset }) {
   // Pass the reset function to the parent
   onReset(handleReset);
 
+  const imageSrc = message
+  ? getMessageImage(message) // Pass the updated `message` value directly
+  : null;
+
   return (
     <div>
-    <p className="text-xl mt-4">{message}</p>
+      <div>
+        {imageSrc && (
+          <div className="image-container">
+            <img
+              src={imageSrc}
+              alt="Message visual"
+              className="w-32 h-32 mx-auto my-4"
+            />
+          </div>
+        )}
+        <p className="text-xl mt-4">{message}</p>
+      </div>
     <div className="container mx-auto text-center my-8">
       <div className="grid grid-cols-10 gap-2">
         {Array.from({ length: 100 }, (_, i) => i + 1).map((number) => (

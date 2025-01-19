@@ -47,10 +47,10 @@ public class GameService {
             return new GameState("Please choose a number between 1 and 100.", score);
         }
         else if (guess > targetNumber) {
-            String message = guess - targetNumber > 10 ? "Too high!" : "A little high!";
+            String message = guess - targetNumber > 10 ? "Selected Value is too high! Choose smaller one." : "Selected Value is little high! You're closer to value.";
             return new GameState(message, score);
         } else {
-            String message = targetNumber - guess > 10 ? "Too low!" : "A little low!";
+            String message = targetNumber - guess > 10 ? "Selected Value is too low! Choose bigger one." : "Selected Value is little low! You're closer to value.";
             return new GameState(message, score);       
         }
     }
