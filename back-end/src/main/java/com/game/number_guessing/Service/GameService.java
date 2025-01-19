@@ -25,7 +25,7 @@ public class GameService {
     }
 
     public GameState makeGuess(int guess, int attempts) {
-        if (gameOver) {
+        if (gameOver && attempts >= 10) {
             resetGame();
             return new GameState("Game over! Please start a new game.", 0);
         }
