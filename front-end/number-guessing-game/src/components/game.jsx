@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { incrementAttempts, resetAttempts } from '../redux/attemptsSlice';
 import { makeGuess } from '../services/gameService';
@@ -91,6 +91,18 @@ function Game({onReset }) {
   const imageSrc = message
   ? getMessageImage(message) // Pass the updated `message` value directly
   : null;
+
+  // Manage the modal timeout using useEffect
+  useEffect(() => {
+    let timer;
+    if (showPopup) {
+      timer = setTimeout(() => {
+        setShowPopup(false); // Hide popup after 5 seconds
+      }, 5000);
+    }
+    // Clear timeout if the popup is closed manually or if message changes
+    return () => clearTimeout(timer);
+  }, [showPopup, message]); // Trigger useEffect when showPopup or message changes
 
   return (
     <div>
