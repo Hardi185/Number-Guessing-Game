@@ -61,7 +61,6 @@ function Game({onReset }) {
     if (response) {
       setMessage(response.message);
       setShowPopup(true); // Show the popup
-      setTimeout(() => setShowPopup(false), 5000); // Hide the popup after 5 seconds
       dispatch(setScore(response.score));
     }
 
