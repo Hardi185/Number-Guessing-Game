@@ -7,18 +7,20 @@ import { useDispatch, useSelector } from 'react-redux';
 
 function Navbar({ handleResetGrid }) {
   const attempts = useSelector((state) => state.attempts.attempts);
-  const score = useSelector((state) => state.score.score);
   const dispatch = useDispatch();
-  
 
   // New state for progress bar value
   const [progress, setProgress] = useState(0);
 
   useEffect(() => {
-    // Update progress based on score or attempts
-    // Example: Max score is 100, so progress is score / 100
-    setProgress(Math.min(score, 100)); // Ensure progress doesn't exceed 100
-  }, [score]);
+    // Update progress based on attempts
+    // Full green (1000) for 1 attempt, reducing by 100 for each additional attempt
+    if (attempts === 0) {
+      setProgress(0);
+    } else {
+      setProgress(Math.max(0, 1000 - (attempts - 1) * 100));
+    }
+  }, [attempts]);
 
   const handleResetGame = async () => {
     const response = await resetGame();
@@ -41,12 +43,12 @@ function Navbar({ handleResetGrid }) {
           <p className="text-lg">Attempts: {attempts} / 10</p>
           <div className="w-full px-4 py-2">
             <div className="bg-gray-200 rounded-full h-2.5">
-                <div
-                  className="bg-green-500 h-2.5 rounded-full"
-                  style={{ width: `${score/100}%` }}
-                ></div>
+              <div
+                className="bg-green-500 h-2.5 rounded-full"
+                style={{ width: `${(progress / 1000) * 100}%` }}
+              ></div>
             </div>
-            <p className="text-center text-sm text-gray-400 mt-1">{score}% Progress</p>
+            <p className="text-center text-sm text-gray-400 mt-1">Score: {progress}</p>
           </div>
           <button
             onClick={handleResetGame}
