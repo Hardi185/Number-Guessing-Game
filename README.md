@@ -21,7 +21,7 @@ mvn -v
 
 ### Step 1: Initialize a Spring Boot Application
 
-- Visit (Spring Initializr)[https://start.spring.io/].
+- Visit [Spring Initializr](https://start.spring.io/).
 - Add the required dependencies (e.g., Spring Web, Spring Data JPA, H2, etc.).
 - Download the generated ZIP file.
 - Extract the ZIP file and move it to your desired directory.
@@ -38,4 +38,4 @@ mvn spring-boot:run
 ### Front-End Setup (React with Vite)
 
 For creation of react project using Vite and to run it, Follow this link:
-(React Project using Vite)[https://github.com/Hardi185/ReactJS/blob/main/Project/01viteReact/Setup%20%26%20Explaination.md]
+[React Project using Vite](https://github.com/Hardi185/ReactJS/blob/main/Project/01viteReact/Setup%20%26%20Explaination.md)
