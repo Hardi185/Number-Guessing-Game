@@ -1,7 +1,6 @@
 #root {
-  max-width: 1280px;
+  width: 100%;
   margin: 0 auto;
-  padding: 2rem;
   text-align: center;
 }
 
@@ -39,4 +38,22 @@
 
 .read-the-docs {
   color: #888;
+}
+
+@keyframes borderAnimation {
+  0% {
+    border-image-source: linear-gradient(45deg, #ff6ec4, #7873f5);
+  }
+  25% {
+    border-image-source: linear-gradient(90deg, #ff9a9e, #fad0c4);
+  }
+  50% {
+    border-image-source: linear-gradient(135deg, #fbc2eb, #a6c1ee);
+  }
+  75% {
+    border-image-source: linear-gradient(180deg, #84fab0, #8fd3f4);
+  }
+  100% {
+    border-image-source: linear-gradient(225deg, #ff6ec4, #7873f5);
+  }
 }
