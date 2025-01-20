@@ -48,7 +48,7 @@ function Navbar({ handleResetGrid }) {
                 style={{ width: `${(progress / 1000) * 100}%` }}
               ></div>
             </div>
-            <p className="text-center text-sm text-gray-400 mt-1">Score: {progress}</p>
+            <p className="text-center text-sm mt-1">Score: {progress}</p>
           </div>
           <button
             onClick={handleResetGame}
